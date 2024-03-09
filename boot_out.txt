@@ -1,0 +1,4 @@
+Adafruit CircuitPython 8.2.10 on 2024-02-14; Adafruit NeoKey Trinkey M0 with samd21e18
+Board ID:adafruit_neokey_trinkey_m0
+UID:9EA0D51D4158305020312E531E1110FF
+boot.py output:
