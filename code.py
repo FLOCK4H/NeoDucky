@@ -21,6 +21,7 @@ import tools.keycodes as keycodes
 from tools.detect_os import detect_os_by_files
 from tools.analyzer import analyze_payload
 import neopixel
+import os
 import random
 
 pixel = neopixel.NeoPixel(board.NEOPIXEL, 1, brightness=0.05)
@@ -77,30 +78,65 @@ class NeoDucky:
         pixel.fill((0, 255, 0))
 
     def payloads_write(self, payload):
+        loop_payload = "<LOOP>" in payload
+        if loop_payload:
+            payload = payload.replace("<LOOP>", "")
         tokens = analyze_payload(payload)
-        print(tokens)
-        self.execute_payload(tokens)
-        for toggle in list(self.active_toggles):
-            self.keyboard.release(self.kc.toggles[toggle])
-        self.active_toggles.clear()
+        while True:
+            self.execute_payload(tokens)
+            for toggle in list(self.active_toggles):
+                self.keyboard.release(self.kc.toggles[toggle])
+            self.active_toggles.clear()
+            if not loop_payload:
+                break
+            #                       !!!
+            #  REMOVE THE DELAY ONLY IF YOU SURE WHAT YOU DOING
+            #  USING <LOOP> WITHOUT TIMERS IS DANGEROUSLY STUPID 
+            #                       !!!
+            time.sleep(0.7)
 
 
+def load_payload_from_file():
+    loaded = []
+    tools_dir = os.listdir('tools')
+    if 'payload.txt' in tools_dir and 'payload_mac.txt' in tools_dir:
+        payloads = ["payload.txt", "payload_mac.txt"]
+        for p in payloads:
+            with open(f'tools/{p}', 'r') as f:
+                payload_lines = f.readlines()
+                processed_payload = ''.join(line.strip().rstrip(';') for line in payload_lines)
+                loaded.append({p: processed_payload})
+                gc.collect()
+        return loaded
+    else:
+        print("You have to add payload.txt and payload_mac.txt files to the tools folder")
+        return []
+    
 def main():
     time.sleep(1)
     ducky = NeoDucky()
+    payloads = load_payload_from_file()
+
+    payload, payload_mac = None, None
+    for p in payloads:
+        for k, v in p.items():
+            if k == "payload.txt":
+                payload = v
+            elif k == "payload_mac.txt":
+                payload_mac = v
 
     os_detected = detect_os_by_files()
     print(f"Detected OS: {os_detected}")
 
-    if os_detected == "macOS":
-        ducky.payloads_write("macOS specific payload here")
-    elif os_detected == "Other":
-        ducky.payloads_write("\n<time1><HOE><time1>1234<time1>\n4567\n<time1>4192<time1>\n8888<time1>\n5319<time1>\n<GCMD>b<GCMD><time4>h<time1>ttps://pornhub.com<time5>\n")
+    if os_detected == "macOS" and payload_mac is not None:
+        ducky.payloads_write(payload_mac)
+    elif payload is not None:
+        ducky.payloads_write(payload)
 
     gc.collect()
     while True:
-        r,g,b = random.randint(0,255),random.randint(0,255),random.randint(0,255)
-        brights = random.uniform(0.01,0.3)
+        r, g, b = random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)
+        brights = random.uniform(0.01, 0.3)
         pixel.fill((r, g, b))
         pixel.brightness = brights
         time.sleep(random.uniform(0.05, 0.2))
