@@ -8,14 +8,12 @@ class KeyCodes:
     def load_keys(self):
         keys_dict = {}
         
-        # Mapping for lowercase letters
         letters = 'abcdefghijklmnopqrstuvwxyz'
         for letter in letters:
             keycode_attr = getattr(Keycode, letter.upper(), None)
             if keycode_attr is not None:
                 keys_dict[letter] = keycode_attr
                 
-        # Mapping for numbers
         numbers = {
             "1": Keycode.ONE,
             "2": Keycode.TWO,
@@ -100,7 +98,9 @@ class KeyCodes:
             "<NLK>": Keycode.KEYPAD_NUMLOCK,
             "<APP>": Keycode.APPLICATION,
             "<PWR>": Keycode.POWER, # macOS only
-            "<GUI>": Keycode.GUI, # or WINDOWS key
+            "<GUI>": Keycode.GUI, # MAC or WINDOWS key / Search key for android/ ios
+            "<CMD>": Keycode.GUI, 
+            "<WIN>": Keycode.GUI,  
             "<CTL>": Keycode.LEFT_CONTROL,
             "<SPC>": Keycode.SPACEBAR
             }
