@@ -186,3 +186,26 @@ Tags are used to perform specific actions in the payload, there are two types of
 ```
 
 </details>
+
+# Usage
+
+<details>
+ <summary>Click to expand</summary>
+  
+Ducky will detect the operating system itself if its MacOS, basing on files structure. After analyzing the payload, it will start execution at a high speed, consider using time breaks. 
+
+On Linux/ Windows devices to hide the Ducky's storage and enter Stealth mode just uncomment the line
+
+`storage.disable_usb_device()`
+
+In `boot.py` file.
+
+To turn off the Stealth mode just enter REPL session with the NeoDucky using any serial terminal and type
+
+`storage.enable_usb_device()`
+
+</details>
+
+# Conclusion
+
+> While NeoDucky is a powerful device, it shouldn't be used in any harmful way, HID Payload Injection is a form of an attack that will result in legal consequences.
