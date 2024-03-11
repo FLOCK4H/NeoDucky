@@ -40,7 +40,8 @@ NeoDucky is designed as the most cost-effective BadUSB device in its class, focu
 Components:
    1. Adafruit NeoKey Trinkey ATSAMD21E18
       - Price as of 2024: ~8-10$</br>
-   2. Any USB-A adapter/port and a machine (PC/Laptop) to plug in the USB-A end of the NeoKey
+      
+   2. Any USB-A port and a machine (PC/Laptop) to plug in the NeoKey
 
 ## Before we continue
 
@@ -49,6 +50,7 @@ Components:
 > Any misuse outside of this context may result in legal consequences, for which the author disclaims responsibility.
 
 ### Legal considerations
+
 <details>
 <summary>Click to expand</summary></br>
   
@@ -67,6 +69,7 @@ Components:
 <details> 
   
 <summary>Recipe for NeoDucky:</summary>
+<br>
 
 - Download project files as .zip and unpack
   or `$ sudo git clone https://github.com/FLOCK4H/NeoDucky`
@@ -74,7 +77,8 @@ Components:
 - Plug in the NeoKey Trinkey to USB-A
 - TRINKEYBOOT drive should appear</br></br>
 ![image](https://github.com/FLOCK4H/NeoDucky/assets/161654571/8d8c108c-e0b7-443a-b6a6-ce85e83c83e5)</br>
-</br>In case nothing happens just double press the reset button on the board</br>
+
+In case nothing happens just double press the reset button on the board</br>
 - Mount the drive (double-click) if it isn't already
 - Drag and drop the 'adafruit-circuitpython-adafruit_neokey_trinkey_m0-en_US-8.2.10.uf2' from NeoDucky folder to the TRINKEYBOOT drive
 - Voila, you should now have a drive named CIRCUITPY so access it
@@ -88,10 +92,12 @@ Components:
 
 <details>
   <summary>Easy Payload Syntax</summary>
+  
 ### To manage NeoDucky's payload just edit payload.txt in tools folder inside CIRCUITPY drive
 
-  - Introduction
-Lets try to write a simple payload that will type in "Hello World!" after NeoDucky boots up
+1. Introduction
+   
+Let's try to write a simple payload that will type in "Hello World!" after NeoDucky boots up
 
 `payload.txt`
 ```
@@ -106,28 +112,62 @@ Hello<time2> ;
 World<time1>!;
 <LOOP>;
 ```
+(Notice the semicolon use, it has to be at the end of the line in multi-line payloads)
+
 One line is also fine:
 ```
 Hello<time2> World<time1><LOOP>
 ```
 
 - 'timeX' - where X is the amount of time to sleep
+  
 - 'LOOP' - as one of special tags, when used it will repeat the operation over and over, it has a near second cooldown to reduce eventual damage
 
-  - Keycodes
+2. Keycodes
+   
 Keycodes are mostly single character format so "A" = "A" but there are exceptions:
 
 - "\n" is used as 'jump into newline' or RETURN key
-- "\t", a tab or four spaces are taken as a TAB key and will return four spaces, use <TAB> tag instead
+- "\t" a tab or four spaces are taken as a TAB key and will return four spaces, use <TAB> tag instead to simulate its press
 
-  - Tags
-Tags are used to perform specific actions in the payload, there are two types of tags
+3. Tags
 
-1. 3-Pieced
-<ESC> - ESCAPE, <BSC> - BACKSPACE, <TAB> - TAB, <SCR> - PRINT SCREEN, <SLK> - SCROLL LOCK, <PAS> - PAUSE, <INS> - INSERT, <HOE> - HOME, <PGU> - PAGE UP, <PGD> - PAGE DOWN, <ARR> - ARROW RIGHT, <ARL> - ARROW LEFT, <ARD> - ARROW DOWN, <ARU> - ARROW UP, <NLK> - NUMLOCK, <APP> - APPLICATION, <PWR> - macOS only, <GUI> - WINDOWS KEY, <CMD> - WINDOWS KEY, <WIN> - WINDOWS KEY, <CTL> - LEFT CONTROL, <SPC> - SPACEBAR
+Tags are used to perform specific actions in the payload, there are two types of tags:
 
-2. 4-pieced
-Those are toggle switches that can be disabled by calling same tag twice during one payload:
+    1. Single
+
+- The button that was pressed is automatically released before the next payload character is sent
+
+```
+<ESC> - ESCAPE,
+<BSC> - BACKSPACE,
+<TAB> - TAB,
+<SCR> - PRINT SCREEN,
+<SLK> - SCROLL LOCK,
+<PAS> - PAUSE,
+<INS> - INSERT,
+<HOE> - HOME,
+<PGU> - PAGE UP,
+<PGD> - PAGE DOWN,
+<ARR> - ARROW RIGHT,
+<ARL> - ARROW LEFT,
+<ARD> - ARROW DOWN,
+<ARU> - ARROW UP,
+<NLK> - NUMLOCK,
+<APP> - APPLICATION,
+<PWR> - macOS only,
+<GUI> - WINDOWS KEY,
+<CMD> - WINDOWS KEY,
+<WIN> - WINDOWS KEY,
+<CTL> - LEFT CONTROL,
+<SPC> - SPACEBAR
+```
+
+    2. Multi
+
+- Button is only released when it meets a sibling tag ("<LSHT>a<LSHT>a" will output 'Aa')
+  
+```
    <CTRL> - Left Control
    <LALT> - Left Alt
    <CTRR> - Right Control
@@ -138,8 +178,9 @@ Those are toggle switches that can be disabled by calling same tag twice during 
    <CAPS> - Capslock
    <LOOP> - Run in loop
    <timeX> - sleep for X time
+```
 
-Example Payload
+### Example Payload
 ```
 <GUI><time2>chrome<time2>\n<time2>www.youtube.com<time1>/n<time2><CTRL>w<time1><LSHT>~<LSHT>
 ```
