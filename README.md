@@ -166,7 +166,7 @@ Used to perform specific actions in the payload, there are two types of tags:
 
     2. Multi
 
-- Button is only released when it meets a sibling tag ("<LSHT>a<LSHT>a" will output 'Aa')
+- Button is only released when it meets a sibling tag ("&lt;LSHT&gt;a&lt;LSHT&gt;a" will output 'Aa')
   
 ```
    <CTRL> - Left Control
@@ -194,13 +194,13 @@ Used to perform specific actions in the payload, there are two types of tags:
  <summary>Click to expand</summary>
 <br>
   
-Ducky will detect the operating system itself basing on files structure. After analyzing the payload, it will start execution at a high speed, consider using time breaks. 
+Ducky will detect the operating system itself basing on files structure.
+
+After analyzing the payload, it will start execution at a high speed, consider using time breaks.
 
 On Linux/ Windows devices to hide the Ducky's storage and enter Stealth mode just uncomment the line
 
-`storage.disable_usb_device()`
-
-In `boot.py` file.
+`storage.disable_usb_device()` In `boot.py` file.
 
 To turn off the Stealth mode just enter REPL session with the NeoDucky using any serial terminal and type
 
