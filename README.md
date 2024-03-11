@@ -115,6 +115,33 @@ Hello<time2> World<time1><LOOP>
 - 'LOOP' - as one of special tags, when used it will repeat the operation over and over, it has a near second cooldown to reduce eventual damage
 
   - Keycodes
-    
+Keycodes are mostly single character format so "A" = "A" but there are exceptions:
+
+- "\n" is used as 'jump into newline' or RETURN key
+- "\t", a tab or four spaces are taken as a TAB key and will return four spaces, use <TAB> tag instead
+
+  - Tags
+Tags are used to perform specific actions in the payload, there are two types of tags
+
+1. 3-Pieced
+<ESC> - ESCAPE, <BSC> - BACKSPACE, <TAB> - TAB, <SCR> - PRINT SCREEN, <SLK> - SCROLL LOCK, <PAS> - PAUSE, <INS> - INSERT, <HOE> - HOME, <PGU> - PAGE UP, <PGD> - PAGE DOWN, <ARR> - ARROW RIGHT, <ARL> - ARROW LEFT, <ARD> - ARROW DOWN, <ARU> - ARROW UP, <NLK> - NUMLOCK, <APP> - APPLICATION, <PWR> - macOS only, <GUI> - WINDOWS KEY, <CMD> - WINDOWS KEY, <WIN> - WINDOWS KEY, <CTL> - LEFT CONTROL, <SPC> - SPACEBAR
+
+2. 4-pieced
+Those are toggle switches that can be disabled by calling same tag twice during one payload:
+   <CTRL> - Left Control
+   <LALT> - Left Alt
+   <CTRR> - Right Control
+   <RALT> - Right Alt
+   <GCMD> - GUI/Command
+   <LSHT> - Left Shift
+   <RSHT> - Right shift
+   <CAPS> - Capslock
+   <LOOP> - Run in loop
+   <timeX> - sleep for X time
+
+Example Payload
+```
+<GUI><time2>chrome<time2>\n<time2>www.youtube.com<time1>/n<time2><CTRL>w<time1><LSHT>~<LSHT>
+```
 
 </details>
