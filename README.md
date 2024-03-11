@@ -122,7 +122,7 @@ Hello<time2> World<time1><LOOP>
 
 - 'timeX' - where X is the amount of time to sleep
   
-- 'LOOP' - as one of special tags, when used it will repeat the operation over and over, it has a near second cooldown to reduce eventual damage
+- 'LOOP' - as one of special tags, when used will repeat the operation over and over, it has a near second cooldown to reduce eventual damage
 
 2. Keycodes
    
@@ -192,8 +192,9 @@ Used to perform specific actions in the payload, there are two types of tags:
 
 <details>
  <summary>Click to expand</summary>
+<br>
   
-Ducky will detect the operating system itself if its MacOS, basing on files structure. After analyzing the payload, it will start execution at a high speed, consider using time breaks. 
+Ducky will detect the operating system itself basing on files structure. After analyzing the payload, it will start execution at a high speed, consider using time breaks. 
 
 On Linux/ Windows devices to hide the Ducky's storage and enter Stealth mode just uncomment the line
 
