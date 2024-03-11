@@ -92,8 +92,9 @@ In case nothing happens just double press the reset button on the board</br>
 
 <details>
   <summary>Easy Payload Syntax</summary>
+<br>
   
-### To manage NeoDucky's payload just edit payload.txt in tools folder inside CIRCUITPY drive
+- To manage NeoDucky's payload just edit payload.txt in tools folder inside CIRCUITPY drive
 
 1. Introduction
    
@@ -132,7 +133,7 @@ Keycodes are mostly single character format so "A" = "A" but there are exception
 
 3. Tags
 
-Tags are used to perform specific actions in the payload, there are two types of tags:
+Used to perform specific actions in the payload, there are two types of tags:
 
     1. Single
 
