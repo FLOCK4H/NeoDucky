@@ -52,7 +52,7 @@ Components:
 ### Legal considerations
 
 <details>
-<summary>Click to expand</summary></br>
+<summary>Click to expand</summary>
   
 ---
 
