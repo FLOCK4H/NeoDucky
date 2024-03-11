@@ -13,23 +13,27 @@
 import time
 import board
 from adafruit_hid.keyboard import Keyboard
-import usb_hid
+from usb_hid import devices
 from adafruit_hid.keycode import Keycode
 from adafruit_hid.keyboard_layout_us import KeyboardLayoutUS
-import gc
 import tools.keycodes as keycodes
 from tools.detect_os import detect_os_by_files
 from tools.analyzer import analyze_payload
-import neopixel
-import os
-import random
+import gc
+from neopixel import NeoPixel
+from os import listdir
+from random import randint, uniform
+from supervisor import runtime
 
-pixel = neopixel.NeoPixel(board.NEOPIXEL, 1, brightness=0.05)
+runtime.autoreload = False
+
+pixel = NeoPixel(board.NEOPIXEL, 1, brightness=0.05)
+gc.collect()
 
 class NeoDucky:
     def __init__(self):
         self.kc = keycodes.KeyCodes()
-        self.keyboard = Keyboard(usb_hid.devices)
+        self.keyboard = Keyboard(devices)
         self.active_toggles = set()
 
     def handle_toggle(self, token):
@@ -95,16 +99,16 @@ class NeoDucky:
             #                       !!!
             time.sleep(0.7)
 
-
 def load_payload_from_file():
     loaded = []
-    tools_dir = os.listdir('tools')
+    tools_dir = listdir('tools')
     if 'payload.txt' in tools_dir and 'payload_mac.txt' in tools_dir:
         payloads = ["payload.txt", "payload_mac.txt"]
         for p in payloads:
             with open(f'tools/{p}', 'r') as f:
                 payload_lines = f.readlines()
                 processed_payload = ''.join(line.strip().rstrip(';') for line in payload_lines)
+                processed_payload = processed_payload.replace('\\n', '\n').replace('\\t', '\t')
                 loaded.append({p: processed_payload})
                 gc.collect()
         return loaded
@@ -113,7 +117,6 @@ def load_payload_from_file():
         return []
     
 def main():
-    time.sleep(1)
     ducky = NeoDucky()
     payloads = load_payload_from_file()
 
@@ -135,13 +138,12 @@ def main():
 
     gc.collect()
     while True:
-        r, g, b = random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)
-        brights = random.uniform(0.01, 0.3)
+        r, g, b = randint(0, 255), randint(0, 255), randint(0, 255)
+        brights = uniform(0.08, 0.3)
         pixel.fill((r, g, b))
         pixel.brightness = brights
-        time.sleep(random.uniform(0.05, 0.2))
+        time.sleep(uniform(0.05, 0.2))
         gc.collect()
 
 if __name__ == "__main__":
     main()
-
