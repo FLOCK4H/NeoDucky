@@ -68,7 +68,7 @@ Components:
 
 <details> 
   
-<summary>Recipe for NeoDucky:</summary>
+<summary>Recipe for NeoDucky</summary>
 <br>
 
 - Download project files as .zip and unpack
