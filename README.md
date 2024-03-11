@@ -79,4 +79,6 @@ Recipe for NeoDucky:
 - Move project files there so only: code.py; boot.py; /tools/; /lib/;
 
 The important part is getting files there, if you run into any "there is not enough space" just remove all files from CIRCUITPY drive,
-then 
+then move the project files freely. In order to remove all files you must remove all hidden files too (".fseventsd", ".Trash-1000", ".metadata_never_index").
+
+- Transform NeoKey into NeoDucky by pressing the Reset button on the back of the board
