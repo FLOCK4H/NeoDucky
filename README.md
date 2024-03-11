@@ -64,7 +64,9 @@ Components:
 
 # Setup
 
-Recipe for NeoDucky:
+<details> 
+  
+<summary>Recipe for NeoDucky:</summary>
 
 - Download project files as .zip and unpack
   or `$ sudo git clone https://github.com/FLOCK4H/NeoDucky`
@@ -78,7 +80,41 @@ Recipe for NeoDucky:
 - Voila, you should now have a drive named CIRCUITPY so access it
 - Move project files there so only: code.py; boot.py; /tools/; /lib/;
 
-The important part is getting files there, if you run into any "there is not enough space" just remove all files from CIRCUITPY drive,
-then move the project files freely. In order to remove all files you must remove all hidden files too (".fseventsd", ".Trash-1000", ".metadata_never_index").
+> If you run into any "there is not enough space" just remove all files from CIRCUITPY drive, and then move the project files freely. In order to remove all files you must remove all hidden files too (".fseventsd", > ".Trash-1000", ".metadata_never_index").
 
 - Transform NeoKey into NeoDucky by pressing the Reset button on the back of the board
+
+</details>
+
+<details>
+  <summary>Easy Payload Syntax</summary>
+### To manage NeoDucky's payload just edit payload.txt in tools folder inside CIRCUITPY drive
+
+  - Introduction
+Lets try to write a simple payload that will type in "Hello World!" after NeoDucky boots up
+
+`payload.txt`
+```
+Hello World!
+```
+
+Simple.
+
+Now let's run it in loop:
+```
+Hello<time2> ;
+World<time1>!;
+<LOOP>;
+```
+One line is also fine:
+```
+Hello<time2> World<time1><LOOP>
+```
+
+- 'timeX' - where X is the amount of time to sleep
+- 'LOOP' - as one of special tags, when used it will repeat the operation over and over, it has a near second cooldown to reduce eventual damage
+
+  - Keycodes
+    
+
+</details>
