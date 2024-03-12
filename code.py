@@ -6,7 +6,7 @@
 #                               |__/   ⣿⠇⠀⠀⠀⠀⠀ ⠉⠉⠉⠉⠉⠁⠀⠀⠀⠀⠀⠈⣿⡀
 #                                      ⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀ ⢹⡇
 #       made with ❤️ by FLOCK4H        ⣿⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣼⡇
-#           Version 0.99               ⠸⣷⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⡿⠀
+#           Version 0.1                ⠸⣷⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⡿⠀
 #⠀                                      ⠹⣷⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣰⡿⠁
 #⠀⠀⠀                                      ⠉⠙⠛⠿⠶⣶⣶⣶⣶⠿⠟⠛⠉
 
@@ -49,7 +49,6 @@ class NeoDucky:
                 if "time" in token[1:-1]:
                     pixel.fill((255, 255, 0))  # yellow
                     try:
-                        # Extract the time value from the token and convert it to a float
                         sleep_time = float(token[token.find("time") + 4:-1])
                         time.sleep(sleep_time)
                     except ValueError:
