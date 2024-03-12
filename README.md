@@ -12,8 +12,6 @@
 
 NeoDucky is a highly compact, efficient, and multiplatform BadUSB/RubberDucky device powered by Adafruit NeoKey Trinkey.
 
-Not equipped with any SD Card reader on purpose - to make stealing activities harder.
-
 ## What NeoDucky can do?
 <details>
   <summary>Click to expand</summary>
