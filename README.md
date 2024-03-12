@@ -115,10 +115,10 @@ World<time1>!;
 
 One line is also fine:
 ```
-Hello<time2> World<time1><LOOP>
+Hello <time1>World<time1><LOOP>
 ```
 
-- 'timeX' - where X is the amount of time to sleep
+- 'timeX' - where X is the amount of time to sleep (can be float e.g. 0.1 or XXX number like 360)
   
 - 'LOOP' - as one of special tags, when used will repeat the operation over and over, it has a near second cooldown to reduce eventual damage
 
@@ -193,14 +193,13 @@ Used to perform specific actions in the payload, there are two types of tags:
 <br>
   
 Ducky will detect the operating system itself basing on files structure.
-
-After analyzing the payload, it will start execution at a high speed, consider using time breaks.
+After analyzing the payload, it will start execution at a high speed, so consider using time breaks.
 
 On Linux/ Windows devices to hide the Ducky's storage and enter Stealth mode just uncomment the line
 
 `storage.disable_usb_device()` In `boot.py` file.
 
-To turn off the Stealth mode just enter REPL session with the NeoDucky using any serial terminal and type
+To turn off the Stealth mode, enter REPL session with the NeoDucky using any serial terminal and type
 
 `storage.enable_usb_device()`
 
