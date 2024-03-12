@@ -15,7 +15,6 @@ import board
 from adafruit_hid.keyboard import Keyboard
 from usb_hid import devices
 from adafruit_hid.keycode import Keycode
-from adafruit_hid.keyboard_layout_us import KeyboardLayoutUS
 import tools.keycodes as keycodes
 from tools.detect_os import detect_os_by_files
 from tools.analyzer import analyze_payload
@@ -49,8 +48,12 @@ class NeoDucky:
             if token.startswith('<') and token.endswith('>'):
                 if "time" in token[1:-1]:
                     pixel.fill((255, 255, 0))  # yellow
-                    sleep_time = int(token[5:-1])
-                    time.sleep(sleep_time)
+                    try:
+                        # Extract the time value from the token and convert it to a float
+                        sleep_time = float(token[token.find("time") + 4:-1])
+                        time.sleep(sleep_time)
+                    except ValueError:
+                        print(f"Invalid time value in token '{token}'")
                 elif token in self.kc.system_chars:
                     pixel.fill((0, 255, 0)) # green
                     self.keyboard.send(self.kc.system_chars[token])
@@ -72,10 +75,10 @@ class NeoDucky:
                     else:
                         print(f"No keycode mapping found for '{char}'")
                         pixel.fill((255, 0, 255))  # magenta
-                    
+
                     for active_toggle in self.active_toggles:
                         self.keyboard.press(self.kc.toggles[active_toggle])
-        
+
         for toggle in list(self.active_toggles):
             self.keyboard.release(self.kc.toggles[toggle])
         self.active_toggles.clear()
@@ -117,6 +120,7 @@ def load_payload_from_file():
         return []
     
 def main():
+    time.sleep(1)
     ducky = NeoDucky()
     payloads = load_payload_from_file()
 
@@ -130,7 +134,7 @@ def main():
 
     os_detected = detect_os_by_files()
     print(f"Detected OS: {os_detected}")
-
+    gc.collect()
     if os_detected == "macOS" and payload_mac is not None:
         ducky.payloads_write(payload_mac)
     elif payload is not None:
