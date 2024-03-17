@@ -5,8 +5,8 @@
 # |_|\_\___\___/___/ \_,_\__|_\_\\_, | ⢰⡿⠁⠀⠀⠙⢿⣦⣤⣤⣼⣿⣄⠀⠀⠀⠀⠀⢴⡟⠛⠋⠁⠀
 #                               |__/   ⣿⠇⠀⠀⠀⠀⠀ ⠉⠉⠉⠉⠉⠁⠀⠀⠀⠀⠀⠈⣿⡀
 #                                      ⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀ ⢹⡇
-#       made with ❤️ by FLOCK4H        ⣿⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣼⡇
-#           Version 0.1                ⠸⣷⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⡿⠀
+#       made with ❤️ by FLOCK4H         ⣿⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣼⡇
+#           Version 1.0                ⠸⣷⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⡿⠀
 #⠀                                      ⠹⣷⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣰⡿⠁
 #⠀⠀⠀                                      ⠉⠙⠛⠿⠶⣶⣶⣶⣶⠿⠟⠛⠉
 
@@ -16,7 +16,7 @@ from adafruit_hid.keyboard import Keyboard
 from usb_hid import devices
 from adafruit_hid.keycode import Keycode
 import tools.keycodes as keycodes
-from tools.detect_os import detect_os_by_files
+from tools.detect_os import detect_os_by_sys, load_payload_from_file
 from tools.analyzer import analyze_payload
 import gc
 from neopixel import NeoPixel
@@ -99,27 +99,11 @@ class NeoDucky:
             #  REMOVE THE DELAY ONLY IF YOU SURE WHAT YOU DOING
             #  USING <LOOP> WITHOUT TIMERS IS DANGEROUSLY STUPID 
             #                       !!!
-            time.sleep(0.7)
+            time.sleep(0.4)
 
-def load_payload_from_file():
-    loaded = []
-    tools_dir = listdir('tools')
-    if 'payload.txt' in tools_dir and 'payload_mac.txt' in tools_dir:
-        payloads = ["payload.txt", "payload_mac.txt"]
-        for p in payloads:
-            with open(f'tools/{p}', 'r') as f:
-                payload_lines = f.readlines()
-                processed_payload = ''.join(line.strip().rstrip(';') for line in payload_lines)
-                processed_payload = processed_payload.replace('\\n', '\n').replace('\\t', '\t')
-                loaded.append({p: processed_payload})
-                gc.collect()
-        return loaded
-    else:
-        print("You have to add payload.txt and payload_mac.txt files to the tools folder")
-        return []
+
     
 def main():
-    time.sleep(1)
     ducky = NeoDucky()
     payloads = load_payload_from_file()
 
@@ -127,11 +111,11 @@ def main():
     for p in payloads:
         for k, v in p.items():
             if k == "payload.txt":
-                payload = v
+                payload = v # Max payload length in ver 1.0 is 1306 bytes
             elif k == "payload_mac.txt":
                 payload_mac = v
 
-    os_detected = detect_os_by_files()
+    os_detected = detect_os_by_sys()
     print(f"Detected OS: {os_detected}")
     gc.collect()
     if os_detected == "macOS" and payload_mac is not None:
@@ -150,3 +134,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
