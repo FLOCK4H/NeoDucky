@@ -18,12 +18,11 @@ NeoDucky is a highly compact, efficient, and multiplatform BadUSB/RubberDucky de
 
 1. Execute Keyboard Payloads
    - Store/gather small amount of data
-   - 2 payloads for 2 different systems
    - Loop option
    - Easy Payload Syntax
    - Speed of light execution
 
-2. Distinguish between Mac/Linux & Windows
+2. Distinguish MacOS from other distros
 3. Switch between Storage/ Stealth modes
 
 **TODO:**
