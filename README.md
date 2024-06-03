@@ -10,7 +10,7 @@
 
 # NeoDucky
 
-NeoDucky is a highly compact, efficient, and multiplatform BadUSB/RubberDucky device powered by Adafruit NeoKey Trinkey.
+NeoDucky is a highly compact, efficient, and multiplatform BadUSB/RubberDucky device powered by Adafruit NeoKey Trinkey, but the code can be optimized to work with nearly every device that supports HID and CircuitPython (just remove pixel references as not every device has a Pixel LED).
 
 ## What NeoDucky can do?
 <details>
